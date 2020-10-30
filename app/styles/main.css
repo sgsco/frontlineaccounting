@@ -9,6 +9,46 @@ body {
   padding: 0;
 }
 
+.removeRPadding {
+  padding-right: 0px !important;
+}
+
+.removeLRPadding {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.accordion-content {
+  padding-top: 5px;
+}
+
+.removeBottomMargin {
+  margin-bottom: 0px!important;
+}
+
+.task-group {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #c4c0c0;
+  margin-top: 5px;
+}
+
+.task-group-container {
+  margin-top: 5px;
+}
+
+.task-group-header {
+  display: flex;
+  align-items: center;
+}
+.task-group-header button {
+  justify-content: flex-end;
+}
+
+.margin-left-5px {
+  margin-left: 5px;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
