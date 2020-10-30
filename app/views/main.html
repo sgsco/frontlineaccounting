@@ -1,23 +1,76 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<div class="container-fluid">
+
+  <div class="col-md-12 removeLRPadding">
+    <div class="col-md-11 removeLRPadding">
+      <input type="text" ng-model="taskGroup" class="form-control" placeholder="Task Group Name">
+    </div>
+
+    <div class="col-md-1 removeLRPadding">
+      <button class="btn btn-success pull-right" ng-click="addTaskGroup(taskGroup)">Add</button>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 removeLRPadding task-group-container">
+    <div class="col-sm-12 task-group" ng-repeat="task in taskList track by $index">
+      <div class="col-sm-12 removeLRPadding task-group-header">
+        <div class="col-md-1 removeRPadding">
+          <span class="pull-right"
+            ng-class="{'glyphicon glyphicon-edit': !task.edit, 'glyphicon glyphicon-floppy-disk': task.edit}"
+            ng-click="task.edit = !task.edit"></span>
+          <span class="glyphicon glyphicon-remove" ng-click="removeItem($index, taskList)"></span>
+        </div>
+        <div class="col-md-5 removeRPadding">
+          <input ng-disabled="!task.edit" type="text" ng-model="task.TaskGroupName" class="form-control">
+        </div>
+        <div class="col-md-5 ">
+          <div class="progress removeBottomMargin" ng-if="task.TaskList.length">
+            <div class="progress-bar" ng-class="{'progress-bar-success': (task.TaskList | filter: {Completed: true}).length == task.TaskList.length}" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+              ng-style="{'width': (((task.TaskList | filter: {Completed: true}).length/task.TaskList.length) * 100)+'%'}">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <span class="glyphicon pull-right" ng-click="task.isOpen = !task.isOpen"
+            ng-class="{'glyphicon-chevron-down': task.isOpen, 'glyphicon-chevron-right': !task.isOpen}"></span>
+        </div>
+      </div>
+      <div class="col-md-12 removeLRPadding accordion-content" ng-show="task.isOpen" ng-drop="true" ng-drop-success="onDropComplete($index, $data)">
+
+        <div class="col-md-12 removeLRPadding">
+          <div class="col-md-6 removeLRPadding">
+            <input type="text" ng-model="taskName" class="form-control" placeholder="Task Name">
+          </div>
+
+          <div class="col-md-6 removeLRPadding">
+            <button class="btn btn-success pull-right" ng-click="addTask(taskName, task.TaskList)">Add</button>
+          </div>
+        </div>
+
+        <div ng-if="task.TaskList.length < 1" class="text-center">
+          <span>No task</span>
+        </div>
+        <div class="col-md-12 removeLRPadding task-group-header task-group-container"  ng-drop="true" ng-drop-success="onDropCompleteReorder($index, $data, $parent.$index)"
+          ng-repeat="t in task.TaskList | orderBy: 'Completed' track by $index" ng-drag="true" ng-drag-data="{'index':$index, 'parentIndex': $parent.$index}">
+          <div class="col-md-6 removeLRPadding">
+            <input ng-disabled="!t.edit" type="text" ng-model="t.TaskName" class="form-control" ng-cancel-drag="true">
+          </div>
+          <div class="col-md-6 removeLRPadding">
+            <span class="glyphicon glyphicon-trash pull-right margin-left-5px"
+              ng-click="removeItem($index, task.TaskList)"></span>
+            <span ng-if="!t.Completed" class="glyphicon pull-right margin-left-5px"
+              ng-class="{ 'glyphicon-edit' : !t.edit, 'glyphicon-floppy-disk': t.edit }"
+              ng-click="t.edit = !t.edit"></span>
+            <span class="glyphicon pull-right margin-left-5px"
+              ng-class="{'glyphicon-ok': !t.Completed, 'glyphicon-repeat': t.Completed }"
+              ng-click="t.Completed = !t.Completed"></span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
 </div>
