@@ -17,7 +17,7 @@
         <div class="col-md-1 removeRPadding">
           <span class="pull-right"
             ng-class="{'glyphicon glyphicon-edit': !task.edit, 'glyphicon glyphicon-floppy-disk': task.edit}"
-            ng-click="task.edit = !task.edit"></span>
+            ng-click="edit(task)"></span>
           <span class="glyphicon glyphicon-remove" ng-click="removeItem($index, taskList)"></span>
         </div>
         <div class="col-md-5 removeRPadding">
@@ -60,10 +60,10 @@
               ng-click="removeItem($index, task.TaskList)"></span>
             <span ng-if="!t.Completed" class="glyphicon pull-right margin-left-5px"
               ng-class="{ 'glyphicon-edit' : !t.edit, 'glyphicon-floppy-disk': t.edit }"
-              ng-click="t.edit = !t.edit"></span>
+              ng-click="edit(t)"></span>
             <span class="glyphicon pull-right margin-left-5px"
               ng-class="{'glyphicon-ok': !t.Completed, 'glyphicon-repeat': t.Completed }"
-              ng-click="t.Completed = !t.Completed"></span>
+              ng-click="complete(t)"></span>
           </div>
 
         </div>

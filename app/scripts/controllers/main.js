@@ -30,14 +30,14 @@ angular.module('sampleappApp')
 
     $scope.removeItem = function (index, list) {
       list.splice(index, 1);
+      localStorage.setItem('task', JSON.stringify($scope.taskList));
     }
 
     $scope.onDropComplete = function (index, obj, parentIndex) {
-      console.log(parentIndex, obj)
       if (obj && index != obj.parentIndex) {
         var item = $scope.taskList[obj.parentIndex].TaskList.splice(obj.index, 1);
         $scope.taskList[index].TaskList.push(item[0]);
-        localStorage.setItem('task', JSON.stringify($scope.taskList))
+        localStorage.setItem('task', JSON.stringify($scope.taskList));
       }
 
     }
@@ -49,7 +49,18 @@ angular.module('sampleappApp')
 
         $scope.taskList[data.parentIndex].TaskList[data.index] = drop;
         $scope.taskList[data.parentIndex].TaskList[index] = drag;
+        localStorage.setItem('task', JSON.stringify($scope.taskList));
       }
+    }
+
+    $scope.edit = function(data) {
+      data.edit = !data.edit;
+      localStorage.setItem('task', JSON.stringify($scope.taskList));
+    }
+
+    $scope.complete = function(data) {
+      data.Completed = !data.Completed;
+      localStorage.setItem('task', JSON.stringify($scope.taskList));
     }
 
   }]);
